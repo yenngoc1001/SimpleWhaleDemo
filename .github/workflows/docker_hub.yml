@@ -28,7 +28,7 @@ jobs:
           RELEASE_VERSION: ${{ steps.vars.outputs.tag }}
         run: |
           echo $RELEASE_VERSION
-        #   echo ${{ steps.vars.outputs.tag }}
+          echo ${{ steps.vars.outputs.tag }}
 
       - name: Cache Docker layers
         uses: actions/cache@v2
@@ -60,7 +60,7 @@ jobs:
           context: ./
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/simplewhale:${{ RELEASE_VERSION }}
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/simplewhale:${{ steps.vars.outputs.tag }}
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
       - name: Image digest
